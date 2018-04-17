@@ -15,6 +15,22 @@
 
 This guide walks you through the process of creating an application that accesses document-based data through a link:/guides/gs/rest-hateoas[hypermedia-based] link:/understanding/REST[RESTful front end].
 
+== Hi Baron, You're in the right place
+
+this is some reference information.
+
+```
+// 
+// https://spring.io/guides/gs/accessing-mongodb-data-rest/
+// adding a record:
+// curl -i -X POST -H "Content-Type:application/json" -d "{  \"firstName\" : \"Frodo\",  \"lastName\" : \"Baggins\" }" http://localhost:8080/people
+// curl -i -X POST -H "Content-Type:application/json" -d "{  \"vinNumber\" : \"WBAAM01\",  \"make\" : \"BMW\" ,  \"model\" : \"323i\" ,  \"year\" : \"1999\" }" http://localhost:8080/vehicle
+// http://localhost:8080/people
+// http://localhost:8080/vehicle
+// http://localhost:8080/vehicle/search/findVehicleByVinNumberEquals?vin=WBAAM01
+```
+the next section is the stuff from Spring.io
+
 == What you'll build
 
 You'll build a Spring application that let's you create and retrieve `Person` objects stored in a http://www.mongodb.org/[MongoDB] link:/understanding/NoSQL[NoSQL] database using Spring Data REST. Spring Data REST takes the features of http://projects.spring.io/spring-hateoas[Spring HATEOAS] and http://projects.spring.io/spring-data-mongodb[Spring Data MongoDB] and combines them together automatically.
