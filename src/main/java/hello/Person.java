@@ -1,10 +1,17 @@
 package hello;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Person {
+    // https://spring.io/guides/gs/accessing-data-rest/
 
-    @Id private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String firstName;
     private String lastName;
