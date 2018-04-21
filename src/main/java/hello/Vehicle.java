@@ -5,25 +5,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 @Entity
+@Document(collection = "vehicles")
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    private String id;
 
     private String vinNumber;
     private String make;
     private String model;
     private String year;
 
-
-    public Vehicle(Long id, String vin, String mk, String mo, String yr){
-        this.id        = id;
-        this.vinNumber = vin;
-        this.make      = mk;
-        this.model     = mo;
-        this.year      = yr;
+    @JsonCreator
+    public Vehicle(@JsonProperty("vinNumber")String vinNumber,
+                   @JsonProperty("make")String make,
+                   @JsonProperty("model")String model,
+                   @JsonProperty("year")String year){
+        this.vinNumber = vinNumber;
+        this.make      = make;
+        this.model     = model;
+        this.year      = year;
     }
 
     @Override

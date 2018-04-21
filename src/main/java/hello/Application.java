@@ -3,14 +3,26 @@ package hello;
 //import com.mongodb.MongoClient;
 //import com.mongodb.MongoClientURI;
 //import com.mongodb.client.MongoDatabase;
+import com.google.common.base.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import static com.google.common.base.Predicates.or;
+import static springfox.documentation.builders.PathSelectors.regex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,13 +30,61 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+@EnableSwagger2
+public class Application {
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+    private static final Log logger = LogFactory.getLog(Application.class);
+    private static Class<Application> applicationClass = Application.class;
 
     public static void main(String args[]) {
-        SpringApplication.run(Application.class, args);
+        //SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(applicationClass, args);
+        displayContext(context);
     }
+
+    @Bean
+    public Docket newsApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("rest")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(paths())
+                .build();
+    }
+    private Predicate<String> paths() {
+        return or(regex("/.*"));
+    }
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("REST vin Example Project")
+                .description("REST API for online vin")
+                .termsOfServiceUrl("http://vinMinder.com/")
+                .contact("Douglas")
+                .license("Back to Home Page")
+                .licenseUrl("/")
+                .version("1.0")
+                .build();
+    }
+
+    private static void displayContext(ConfigurableApplicationContext ctx) {
+        if (null == ctx) {
+            return;
+        }
+        logger.debug("spring.data.mongodb.host:" + ctx.getEnvironment().getProperty("spring.data.mongodb.host"));
+        logger.debug("spring.data.mongodb.port:" + ctx.getEnvironment().getProperty("spring.data.mongodb.port"));
+        logger.debug("spring.data.mongodb.database:" + ctx.getEnvironment().getProperty("spring.data.mongodb.database"));
+
+
+//        System.out.println("Let's inspect the beans provided by Spring Boot:");
+//
+//        String[] beanNames = ctx.getBeanDefinitionNames();
+//        Arrays.sort(beanNames);
+//        for (String beanName : beanNames) {
+//            System.out.println(beanName);
+//        }
+    }
+
+    /*
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -56,10 +116,11 @@ public class Application implements CommandLineRunner {
 
         log.info("Querying for vehicle records where first_name = 'DODGE01':");
         jdbcTemplate.query(
-                "SELECT id, vinNumber, make, model, year FROM vehicles WHERE vinNumber = ?", new Object[] { "DODGE01" },
+                "SELECT id, vinNumber, make, model, year FROM vehicles WHERE vinNumber = ?", new Object[] { "WBAAM01" },
                 (rs, rowNum) -> new Vehicle(rs.getLong("id"), rs.getString("vinNumber"), rs.getString("make"), rs.getString("model"), rs.getString("year"))
         ).forEach(customer -> log.info(customer.toString()));
     }
+    */
     /*
     MongoClientURI uri = new MongoClientURI(
             "mongodb://drogers:fighter1@minder-shard-00-00-pinw4.mongodb.net:27017,minder-shard-00-01-pinw4.mongodb.net:27017,minder-shard-00-02-pinw4.mongodb.net:27017/test?ssl=true&replicaSet=minder-shard-0&authSource=admin");

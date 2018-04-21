@@ -7,9 +7,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "vehicleCar", path = "vehicleCar")
+@RepositoryRestResource(collectionResourceRel = "vehicle", path = "vehicle")
 
 public interface VehicleRepository extends PagingAndSortingRepository<Vehicle, Long> {
 
-    Vehicle findVehicleByVinNumber(@Param("vin") String vin);
+    Vehicle findVehicleByVinNumber(@Param("vinNumber") String vinNumber);
 }

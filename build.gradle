@@ -28,7 +28,12 @@ dependencies {
     compile("com.h2database:h2")
     testCompile("junit:junit")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
-    // compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+    // using 3.4 for mongo atlas
+    //compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.4.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile("org.springframework.boot:spring-boot-starter-test")
