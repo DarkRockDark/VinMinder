@@ -28,6 +28,8 @@ this is some reference information.
 // http://localhost:8080/people
 // http://localhost:8080/vehicle
 // http://localhost:8080/vehicle/search/findVehicleByVinNumberEquals?vin=WBAAM01
+http://localhost:8080/swagger-ui.html#/
+https://mlab.com/databases/vinminder/collections/vehicles
 ```
 the next section is the stuff from Spring.io
 
