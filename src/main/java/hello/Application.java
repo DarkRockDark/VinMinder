@@ -74,17 +74,12 @@ public class Application {
         logger.debug("spring.data.mongodb.port:" + ctx.getEnvironment().getProperty("spring.data.mongodb.port"));
         logger.debug("spring.data.mongodb.database:" + ctx.getEnvironment().getProperty("spring.data.mongodb.database"));
 
-
-//        System.out.println("Let's inspect the beans provided by Spring Boot:");
-//
-//        String[] beanNames = ctx.getBeanDefinitionNames();
-//        Arrays.sort(beanNames);
-//        for (String beanName : beanNames) {
-//            System.out.println(beanName);
-//        }
     }
 
     /*
+# web: java -Dspring.profiles.active=mlab -Dserver.port=$PORT -jar target/*.jar
+# web: java -jar build/server/webapp-runner-*.jar build/libs/*.war
+#web: java -Dspring.profiles.active=mlab -Dserver.port=$PORT -jar build/server/webapp-runner-*.jar target/*.jar
 
     @Autowired
     JdbcTemplate jdbcTemplate;
